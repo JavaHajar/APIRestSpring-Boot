@@ -3,10 +3,12 @@ package com.code.sbootwdc.service.participant;
 import com.code.sbootwdc.model.Participant;
 import com.code.sbootwdc.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ParticipantServiceImp implements ParticipantService{
     @Autowired
     ParticipantRepository participantRepository;

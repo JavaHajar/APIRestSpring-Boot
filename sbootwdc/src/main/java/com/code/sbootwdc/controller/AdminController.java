@@ -3,8 +3,10 @@ package com.code.sbootwdc.controller;
 
 import com.code.sbootwdc.model.Admin;
 import com.code.sbootwdc.model.Role;
+import com.code.sbootwdc.model.Typeofactivite;
 import com.code.sbootwdc.model.Typeresponsable;
 import com.code.sbootwdc.service.role.RoleService;
+import com.code.sbootwdc.service.typeOfActivite.TypeOfActiviteService;
 import com.code.sbootwdc.service.typeresponsable.TyperesponsableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ public class AdminController {
 
     @Autowired
     TyperesponsableService typerespService;
+
+    @Autowired
+    TypeOfActiviteService typeOfActiviteService;
 
 
     @GetMapping("/roles")
@@ -78,6 +83,35 @@ public class AdminController {
     public String delettyperes(Typeresponsable typeresponsable){
         typerespService.delete(typeresponsable);
         return "typeresponsable deleted succefully";
+    }
+
+    // endpoints for TypeOfActivité  =============
+
+    @GetMapping("/typeOfActivites")
+    public List<Typeofactivite> getAllActivites(){
+        return (List<Typeofactivite>) typeOfActiviteService.findAll();
+    }
+
+    @GetMapping("/activite/{id}")
+    public Optional<Typeofactivite> getOneActivite(@PathVariable("id") Integer id){
+        return typeOfActiviteService.findById(id);
+    }
+
+    @PostMapping("/createActivite")
+    public Typeofactivite create(Typeofactivite typeofactivite){
+        return typeOfActiviteService.save(typeofactivite);
+    }
+
+    @PutMapping("/updateActivite")
+    public String updateActivite(Typeofactivite typeofactivite){
+        typeOfActiviteService.update(typeofactivite);
+        return "Typeofactivite updated succefully";
+    }
+
+    @DeleteMapping("/deleteActivite")
+    public String deleteActivite(Typeofactivite typeofactivite){
+        typeOfActiviteService.delete(typeofactivite);
+        return "typeofactivite deleted succefully";
     }
 
 }
