@@ -1,50 +1,89 @@
 package com.code.sbootwdc.controller;
-import com.code.sbootwdc.model.Admin;
-import com.code.sbootwdc.model.Role;
-import com.code.sbootwdc.model.User;
+import com.code.sbootwdc.model.*;
 import com.code.sbootwdc.service.admin.AdminService;
+import com.code.sbootwdc.service.participant.ParticipantService;
+import com.code.sbootwdc.service.responsable.ResponsableService;
 import com.code.sbootwdc.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
     @Autowired
     AdminService adminService;
 
-//    @Autowired
-//    UserService userService;
+    @Autowired
+    ResponsableService responsableService;
 
+    @Autowired
+    ParticipantService participantService;
 
-//    @PostMapping("/createUser")
-//    public String save(){
-//        System.out.println("test save controller");
-//        Role role = new Role("admin");
-//        User user = new User(1,"hajar","boudali","67576576567","hjar@test.com","hajarhajar",true, "it",role);
-//        userService.save(user);
-//       return "saved successfully" ;
-//    }
 
     //     endpoints for admin  =============
 
     @PostMapping("/createtadmin")
-
-    public String saveadmin() {
-        Role role = new Role();
-        role.setId(1);
-//        Admin admin = new Admin("admin", "admin", "09809809809", "admin@gmail.com", "admin1234", true, role, "it");
-       Admin admin = new Admin();
-        admin.setNom("test");
-       admin.setPrenom("test");
-       admin.setTele("76876868");
-       admin.setEmail("test@gmail.com");
-       admin.setPassword("test1234");
-       admin.setEtat(true);
-       admin.setRoles(role);
-       admin.setDomaine("it");
-       adminService.save(admin);
-       return "success";
+    public Admin saveadmin(Admin admin) {
+        return adminService.save(admin);
     }
+
+    //     endpoints for responsable  =============
+
+    @GetMapping("/responsables")
+    public List<Responsable> getresponsables() {
+        return (List<Responsable>) responsableService.findAll();
+    }
+
+    @GetMapping ("/responsable/{id}")
+    public Optional<Responsable> getOnerespons(@PathVariable("id") Integer id){
+        return responsableService.findById(id);
+    }
+
+    @PostMapping("/createresponsable")
+    public Responsable saveresponsable(Responsable responsable){
+        return responsableService.save(responsable);
+    }
+
+    @PutMapping("/updateresponsable")
+    public String updatresponsable(Responsable responsable){
+        responsableService.update(responsable);
+        return "responsable updated succefully";
+    }
+
+    @DeleteMapping("/deletresponsable")
+    public String deletresponsable(Responsable responsable){
+        responsableService.delete(responsable);
+        return "responsable deleted succefully";
+    }
+
+    //     endpoints for participant  =============
+    @GetMapping("/participants")
+    public List<Participant> getparticipants() {
+        return (List<Participant>) participantService.findAll();
+    }
+
+    @GetMapping ("/participant/{id}")
+    public Optional<Participant> getOneparticipant(@PathVariable("id") Integer id){
+        return participantService.findById(id);
+    }
+
+    @PostMapping("/creatparticipant")
+    public Participant saveparticipant(Participant participant){
+        return participantService.save(participant);
+    }
+
+    @PutMapping("/updatparticipant")
+    public String updatparticipant(Participant participant){
+        participantService.update(participant);
+        return "participant updated succefully";
+    }
+
+    @DeleteMapping("/deletparticipants")
+    public String deletparticipant(Participant participant){
+        participantService.delete(participant);
+        return "participant deleted succefully";
+    }
+
 }
