@@ -1,10 +1,8 @@
 package com.code.sbootwdc.controller;
 
 
-import com.code.sbootwdc.model.Admin;
-import com.code.sbootwdc.model.Role;
-import com.code.sbootwdc.model.Typeofactivite;
-import com.code.sbootwdc.model.Typeresponsable;
+import com.code.sbootwdc.model.*;
+import com.code.sbootwdc.service.exercice.ExerciceService;
 import com.code.sbootwdc.service.role.RoleService;
 import com.code.sbootwdc.service.typeOfActivite.TypeOfActiviteService;
 import com.code.sbootwdc.service.typeresponsable.TyperesponsableService;
@@ -27,6 +25,9 @@ public class AdminController {
 
     @Autowired
     TypeOfActiviteService typeOfActiviteService;
+
+    @Autowired
+    ExerciceService exerciceService;
 
 
     @GetMapping("/roles")
@@ -88,30 +89,59 @@ public class AdminController {
     // endpoints for TypeOfActivité  =============
 
     @GetMapping("/typeOfActivites")
-    public List<Typeofactivite> getAllActivites(){
+    public List<Typeofactivite> getAllTypeOfActivites(){
         return (List<Typeofactivite>) typeOfActiviteService.findAll();
     }
 
-    @GetMapping("/activite/{id}")
-    public Optional<Typeofactivite> getOneActivite(@PathVariable("id") Integer id){
+    @GetMapping("/TypeOfactivite/{id}")
+    public Optional<Typeofactivite> getOneTypeOfActivite(@PathVariable("id") Integer id){
         return typeOfActiviteService.findById(id);
     }
 
-    @PostMapping("/createActivite")
-    public Typeofactivite create(Typeofactivite typeofactivite){
+    @PostMapping("/createTypeOfActivite")
+    public Typeofactivite createTypeOfActivite(Typeofactivite typeofactivite){
         return typeOfActiviteService.save(typeofactivite);
     }
 
-    @PutMapping("/updateActivite")
-    public String updateActivite(Typeofactivite typeofactivite){
+    @PutMapping("/updateTypeOfActivite")
+    public String updateTypeOfActivite(Typeofactivite typeofactivite){
         typeOfActiviteService.update(typeofactivite);
         return "Typeofactivite updated succefully";
     }
 
-    @DeleteMapping("/deleteActivite")
-    public String deleteActivite(Typeofactivite typeofactivite){
+    @DeleteMapping("/deleteTypeOfActivite")
+    public String deleteTypeOfActivite(Typeofactivite typeofactivite){
         typeOfActiviteService.delete(typeofactivite);
         return "typeofactivite deleted succefully";
+    }
+
+    // endpoints for Exercice  =============
+
+    @GetMapping("/exercices")
+    public  List<Exercice> getAllExercices(){
+        return (List<Exercice>) exerciceService.findAll();
+    }
+
+    @GetMapping("/exercice/{id}")
+    public Optional<Exercice> getOneExercicr(@PathVariable("id") Integer id){
+        return exerciceService.findById(id);
+    }
+
+    @PostMapping("/createExercice")
+    public Exercice createExercice(Exercice exercice){
+        return exerciceService.save(exercice);
+    }
+
+    @PutMapping("/updateExercice")
+    public String updateExercice(Exercice exercice){
+        exerciceService.update(exercice);
+        return "Exercice updated succefully";
+    }
+
+    @DeleteMapping("/deleteExercice")
+    public String deleteExercice(Exercice exercice){
+        exerciceService.delete(exercice);
+        return "exercice deleted succefully";
     }
 
 }
