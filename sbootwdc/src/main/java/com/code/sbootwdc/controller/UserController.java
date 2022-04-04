@@ -1,6 +1,7 @@
 package com.code.sbootwdc.controller;
 import com.code.sbootwdc.model.*;
 import com.code.sbootwdc.service.admin.AdminService;
+import com.code.sbootwdc.service.participant.ParticipantService;
 import com.code.sbootwdc.service.responsable.ResponsableService;
 import com.code.sbootwdc.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class UserController {
 
     @Autowired
     ResponsableService responsableService;
+
+    @Autowired
+    ParticipantService participantService;
+
 
     //     endpoints for admin  =============
 
@@ -55,30 +60,30 @@ public class UserController {
 
     //     endpoints for participant  =============
     @GetMapping("/participants")
-    public List<Responsable> getresponsables() {
-        return (List<Responsable>) responsableService.findAll();
+    public List<Participant> getparticipants() {
+        return (List<Participant>) participantService.findAll();
     }
 
     @GetMapping ("/participant/{id}")
-    public Optional<Responsable> getOnerespons(@PathVariable("id") Integer id){
-        return responsableService.findById(id);
+    public Optional<Participant> getOneparticipant(@PathVariable("id") Integer id){
+        return participantService.findById(id);
     }
 
     @PostMapping("/creatparticipant")
-    public Responsable saveresponsable(Responsable responsable){
-        return responsableService.save(responsable);
+    public Participant saveparticipant(Participant participant){
+        return participantService.save(participant);
     }
 
     @PutMapping("/updatparticipant")
-    public String updatresponsable(Responsable responsable){
-        responsableService.update(responsable);
-        return "responsable updated succefully";
+    public String updatparticipant(Participant participant){
+        participantService.update(participant);
+        return "participant updated succefully";
     }
 
     @DeleteMapping("/deletparticipants")
-    public String deletresponsable(Responsable responsable){
-        responsableService.delete(responsable);
-        return "responsable deleted succefully";
+    public String deletparticipant(Participant participant){
+        participantService.delete(participant);
+        return "participant deleted succefully";
     }
 
 }
