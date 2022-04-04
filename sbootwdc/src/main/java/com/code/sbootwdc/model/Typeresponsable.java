@@ -15,8 +15,17 @@ public class Typeresponsable {
     @Column(name = "typeofres", length = 90)
     private String typeofres;
 
-    @OneToMany(mappedBy = "typofres")
+    @OneToMany(mappedBy = "typeofres")
     private Set<Responsable> responsables = new LinkedHashSet<>();
+
+    public Typeresponsable() {
+    }
+
+    public Typeresponsable(Integer id, String typeofres, Set<Responsable> responsables) {
+        this.id = id;
+        this.typeofres = typeofres;
+        this.responsables = responsables;
+    }
 
     public Set<Responsable> getResponsables() {
         return responsables;

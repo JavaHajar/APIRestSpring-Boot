@@ -1,8 +1,6 @@
 package com.code.sbootwdc.model;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -35,23 +33,14 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role roles;
 
-    @Lob
+//    @Lob
     @Column(name = "domaine")
     private String domaine;
-
-//    @ManyToMany
-//    @JoinTable(name = "user_activites",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "activite_id"))
-//    private Set<Activite> activites = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    Set<UserActivite> activituser;
 
     public User() {
     }
 
-    public User(Integer id, String nom, String prenom, String tele, String email, String password, Boolean etat, String domaine, Role roles) {
+    public User(Integer id, String nom, String prenom, String tele, String email, String password, Boolean etat, Role roles, String domaine) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -59,73 +48,26 @@ public class User {
         this.email = email;
         this.password = password;
         this.etat = etat;
-        this.domaine = domaine;
         this.roles = roles;
-    }
-
-//    public Set<Activite> getActivites() {
-//        return activites;
-//    }
-//
-//    public void setActivites(Set<Activite> activites) {
-//        this.activites = activites;
-//    }
-
-
-    public String getDomaine() {
-        return domaine;
-    }
-
-    public void setDomaine(String domaine) {
         this.domaine = domaine;
     }
 
-    public Role getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Role roles) {
-        this.roles = roles;
-    }
-
-    public Boolean getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTele() {
-        return tele;
-    }
-
-    public void setTele(String tele) {
-        this.tele = tele;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
+    public User(String nom, String prenom, String tele, String email, String password, Boolean etat, Role roles, String domaine) {
+        this.nom = nom;
         this.prenom = prenom;
+        this.tele = tele;
+        this.email = email;
+        this.password = password;
+        this.etat = etat;
+        this.roles = roles;
+        this.domaine = domaine;
+    }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -136,11 +78,70 @@ public class User {
         this.nom = nom;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+    public String getTele() {
+        return tele;
+    }
+
+    public void setTele(String tele) {
+        this.tele = tele;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public Boolean getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Boolean etat) {
+        this.etat = etat;
+    }
+    public Role getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
+    public String getDomaine() {
+        return domaine;
+    }
+
+    public void setDomaine(String domaine) {
+        this.domaine = domaine;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", tele='" + tele + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", etat=" + etat +
+                ", roles=" + roles +
+                ", domaine='" + domaine + '\'' +
+                '}';
     }
 }

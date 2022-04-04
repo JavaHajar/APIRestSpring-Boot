@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class UserActiviteId implements Serializable {
-    private static final long serialVersionUID = 7563668209945965322L;
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+public class ParticipantActiviteId implements Serializable {
+    private static final long serialVersionUID = -1388005143362024735L;
+    @Column(name = "participant_id", nullable = false)
+    private Integer participantId;
     @Column(name = "activite_id", nullable = false)
     private Integer activiteId;
 
@@ -24,25 +24,25 @@ public class UserActiviteId implements Serializable {
         this.activiteId = activiteId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getParticipantId() {
+        return participantId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setParticipantId(Integer participantId) {
+        this.participantId = participantId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, activiteId);
+        return Objects.hash(participantId, activiteId);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserActiviteId entity = (UserActiviteId) o;
-        return Objects.equals(this.userId, entity.userId) &&
+        ParticipantActiviteId entity = (ParticipantActiviteId) o;
+        return Objects.equals(this.participantId, entity.participantId) &&
                 Objects.equals(this.activiteId, entity.activiteId);
     }
 }

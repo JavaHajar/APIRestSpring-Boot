@@ -3,15 +3,15 @@ package com.code.sbootwdc.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_activites")
-public class UserActivite {
+@Table(name = "participant_activites")
+public class ParticipantActivite {
     @EmbeddedId
-    private UserActiviteId id;
+    private ParticipantActiviteId id;
 
-    @MapsId("userId")
+    @MapsId("participantId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "participant_id", nullable = false, referencedColumnName = "id")
+    private Participant participant;
 
     @MapsId("activiteId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,19 +26,19 @@ public class UserActivite {
         this.activite = activite;
     }
 
-    public User getUser() {
-        return user;
+    public Participant getParticipant() {
+        return participant;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
     }
 
-    public UserActiviteId getId() {
+    public ParticipantActiviteId getId() {
         return id;
     }
 
-    public void setId(UserActiviteId id) {
+    public void setId(ParticipantActiviteId id) {
         this.id = id;
     }
 }

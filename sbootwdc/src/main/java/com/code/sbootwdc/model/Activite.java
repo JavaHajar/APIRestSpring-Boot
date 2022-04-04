@@ -35,23 +35,31 @@ public class Activite {
     @JoinColumn(name = "exercice_id")
     private Exercice exercices;
 
-//    @ManyToMany
-//    @JoinTable(name = "user_activites",
-//            joinColumns = @JoinColumn(name = "activite_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "responsable_id", nullable = false, referencedColumnName = "id")
+    private Responsable responsables;
 
-    @OneToMany(mappedBy = "activite")
-    Set<UserActivite> activituser;
+    @ManyToMany
+    @JoinTable(name = "participant_activites",
+            joinColumns = @JoinColumn(name = "activite_id"),
+            inverseJoinColumns = @JoinColumn(name = "participant_id"))
+    private Set<Participant> participants = new LinkedHashSet<>();
 
-//    private Set<User> users = new LinkedHashSet<>();
-//
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<Participant> participants) {
+        this.participants = participants;
+    }
+
+    public Responsable getResponsables() {
+        return responsables;
+    }
+
+    public void setResponsables(Responsable responsables) {
+        this.responsables = responsables;
+    }
 
     public Exercice getExercices() {
         return exercices;

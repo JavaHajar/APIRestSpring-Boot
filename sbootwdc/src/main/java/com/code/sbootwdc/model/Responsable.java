@@ -1,22 +1,49 @@
 package com.code.sbootwdc.model;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "responsables")
-@PrimaryKeyJoinColumn(name = "responsableId")
-public class Responsable extends User{
+public class Responsable  extends User{
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "typofres_id")
-    private Typeresponsable typofres;
+    @JoinColumn(name = "typeofres_id")
+    private Typeresponsable typeofres;
 
-    public Typeresponsable getTypofres() {
-        return typofres;
+    @OneToMany(mappedBy = "responsables")
+    private Set<Activite> activites = new LinkedHashSet<>();
+
+    public Responsable() {
     }
 
-    public void setTypofres(Typeresponsable typofres) {
-        this.typofres = typofres;
+    public Responsable(Integer id, String nom, String prenom, String tele, String email, String password, Boolean etat, Role roles, String domaine, Typeresponsable typeofres, Set<Activite> activites) {
+        super(id, nom, prenom, tele, email, password, etat, roles, domaine);
+        this.typeofres = typeofres;
+        this.activites = activites;
+    }
+
+    public Responsable(String nom, String prenom, String tele, String email, String password, Boolean etat, Role roles, String domaine, Typeresponsable typeofres, Set<Activite> activites) {
+        super(nom, prenom, tele, email, password, etat, roles, domaine);
+        this.typeofres = typeofres;
+        this.activites = activites;
+    }
+
+    public Set<Activite> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(Set<Activite> activites) {
+        this.activites = activites;
+    }
+
+    public Typeresponsable getTypeofres() {
+        return typeofres;
+    }
+
+    public void setTypeofres(Typeresponsable typeofres) {
+        this.typeofres = typeofres;
     }
 
 
