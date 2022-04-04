@@ -18,6 +18,19 @@ public class Role {
     @OneToMany(mappedBy = "roles")
     private Set<User> users = new LinkedHashSet<>();
 
+    public Role(Integer id) {
+        this.id = id;
+    }
+
+    public Role() {
+    }
+
+    public Role(Integer id, String typeofuser, Set<User> users) {
+        this.id = id;
+        this.typeofuser = typeofuser;
+        this.users = users;
+    }
+
     public Set<User> getUsers() {
         return users;
     }
