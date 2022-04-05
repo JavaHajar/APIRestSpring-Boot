@@ -33,6 +33,20 @@ public class Exercice {
     @OneToMany(mappedBy = "exercices")
     private Set<Activite> activites = new LinkedHashSet<>();
 
+    public Exercice() {
+    }
+
+    public Exercice(Integer id, String titre, String descriptif, String annee, String datedebut, String datefin, Boolean status, Set<Activite> activites) {
+        this.id = id;
+        this.titre = titre;
+        this.descriptif = descriptif;
+        this.annee = annee;
+        this.datedebut = datedebut;
+        this.datefin = datefin;
+        this.status = status;
+        this.activites = activites;
+    }
+
     public Set<Activite> getActivites() {
         return activites;
     }

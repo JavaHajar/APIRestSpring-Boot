@@ -11,7 +11,7 @@ public class Participant extends User{
     @Column(name = "structure", length = 80)
     private String structure;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(mappedBy = "participants", cascade = CascadeType.ALL)
     private Set<Activite> activites = new LinkedHashSet<>();
 
 

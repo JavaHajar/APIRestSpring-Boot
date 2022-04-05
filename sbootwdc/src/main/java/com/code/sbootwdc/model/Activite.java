@@ -45,6 +45,25 @@ public class Activite {
             inverseJoinColumns = @JoinColumn(name = "participant_id"))
     private Set<Participant> participants = new LinkedHashSet<>();
 
+    public Activite() {
+    }
+    public Activite(Integer id) {
+        this.id = id;
+    }
+
+    public Activite(Integer id, String titre, String descriptif, String datedebut, String datefin, Boolean status, Typeofactivite typeofactivites, Exercice exercices, Responsable responsables, Set<Participant> participants) {
+        this.id = id;
+        this.titre = titre;
+        this.descriptif = descriptif;
+        this.datedebut = datedebut;
+        this.datefin = datefin;
+        this.status = status;
+        this.typeofactivites = typeofactivites;
+        this.exercices = exercices;
+        this.responsables = responsables;
+        this.participants = participants;
+    }
+
     public Set<Participant> getParticipants() {
         return participants;
     }

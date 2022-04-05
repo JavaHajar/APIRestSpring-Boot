@@ -2,6 +2,9 @@ package com.code.sbootwdc.controller;
 
 
 import com.code.sbootwdc.model.*;
+import com.code.sbootwdc.repository.ActiviteRepository;
+import com.code.sbootwdc.repository.ParticipantRepository;
+import com.code.sbootwdc.service.activite.ActiviteService;
 import com.code.sbootwdc.service.exercice.ExerciceService;
 import com.code.sbootwdc.service.role.RoleService;
 import com.code.sbootwdc.service.typeOfActivite.TypeOfActiviteService;
@@ -9,6 +12,7 @@ import com.code.sbootwdc.service.typeresponsable.TyperesponsableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +32,15 @@ public class AdminController {
 
     @Autowired
     ExerciceService exerciceService;
+
+    @Autowired
+    ActiviteService activiteService;
+
+    @Autowired
+    ParticipantRepository participantRepository;
+
+    @Autowired
+    ActiviteRepository activiteRepository;
 
 
     @GetMapping("/roles")
@@ -143,5 +156,50 @@ public class AdminController {
         exerciceService.delete(exercice);
         return "exercice deleted succefully";
     }
+
+    // endpoints for activite  =============
+
+    @GetMapping("/activites")
+    public  List<Activite> getAllactivites(){
+        return (List<Activite>) activiteService.findAll();
+    }
+
+    @GetMapping("/activite/{id}")
+    public Optional<Activite> getOneactivite(@PathVariable("id") Integer id){
+        return activiteService.findById(id);
+    }
+
+    @PostMapping("/createactivite")
+    public Activite createactivite(Activite activite){
+        return activiteService.save(activite);
+    }
+
+    @PutMapping("/updateactivite")
+    public String updateactivite(Activite activite){
+        activiteService.update(activite);
+        return "activite updated succefully";
+    }
+
+    @DeleteMapping("/deleteactivite")
+    public String deleteactivite(Activite activite){
+        activiteService.delete(activite);
+        return "activite deleted succefully";
+    }
+
+
+    // add participant to activites
+
+   @GetMapping("/addParticipant")
+    public String addParticipant(){
+       Participant participant1= participantRepository.getById(6);
+       Participant participant2= participantRepository.getById(7);
+
+       Activite activite = activiteRepository.getById(1);
+       activite.getParticipants().addAll(Arrays.asList(participant1, participant2));
+       activiteService.save(activite);
+       return  "added successfully";
+   }
+
+
 
 }
