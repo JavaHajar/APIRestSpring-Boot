@@ -1,5 +1,8 @@
 package com.code.sbootwdc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +18,7 @@ public class Typeofactivite {
     @Column(name = "nameofactivite", length = 100)
     private String nameofactivite;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "typeofactivites")
     private Set<Activite> activites = new LinkedHashSet<>();
 
