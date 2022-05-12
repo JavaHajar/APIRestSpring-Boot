@@ -3,8 +3,11 @@ import com.code.sbootwdc.model.*;
 import com.code.sbootwdc.service.admin.AdminService;
 import com.code.sbootwdc.service.participant.ParticipantService;
 import com.code.sbootwdc.service.responsable.ResponsableService;
+import com.code.sbootwdc.service.role.RoleService;
 import com.code.sbootwdc.service.user.UserService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +23,12 @@ public class UserController {
 
     @Autowired
     ParticipantService participantService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
 
     //     endpoints for admin  =============
@@ -84,6 +93,31 @@ public class UserController {
     public String deletparticipant(Participant participant){
         participantService.delete(participant);
         return "participant deleted succefully";
+    }
+
+    // added
+    @GetMapping("/users")
+    public ResponseEntity<List<User>>getUsers(){
+        return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @PostMapping("/user/save")
+    public ResponseEntity<User>saveUser(@RequestBody User user){
+        return ResponseEntity.ok().body(userService.saveUser(user));
+    }
+    @PostMapping("/createRole")
+    public Role saveRole(Role role){
+        return roleService.save(role);
+    }
+    @PostMapping("/role/addToUser")
+    public ResponseEntity<User>addRoleToUser(@RequestBody RoleToUserForm form){
+        userService.addRoleToUser(form.getEmail(), form.getRoleName());
+        return ResponseEntity.ok().build();
+    }
+    @Data
+    class  RoleToUserForm{
+        private String email;
+        private String roleName;
     }
 
 }

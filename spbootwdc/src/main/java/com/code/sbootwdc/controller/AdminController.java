@@ -56,11 +56,11 @@ public class AdminController {
         return roleService.findById(id);
     }
 
-    @PostMapping("/createRole")
-    public String saveRole(Role role){
-        roleService.save(role);
-        return "role created succefully";
-    }
+//    @PostMapping("/createRole")
+//    public String saveRole(Role role){
+//        roleService.save(role);
+//        return "role created succefully";
+//    }
 
     @PutMapping("/updateRole")
     public String updateRole(Role role){
