@@ -8,6 +8,8 @@ import com.code.sbootwdc.service.user.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -119,5 +121,11 @@ public class UserController {
         private String email;
         private String roleName;
     }
+
+//    @GetMapping(path = "/basicauth")
+//    public AuthenticationManager basicauth() {
+//        return new AuthenticationManager();
+//    }
+
 
 }

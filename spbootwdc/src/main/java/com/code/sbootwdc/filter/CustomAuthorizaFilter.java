@@ -33,13 +33,14 @@ public class CustomAuthorizaFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getServletPath().equals("login")){
             filterChain.doFilter(request,response);
-        }else {
+        }
+        else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if(authorizationHeader != null && authorizationHeader.startsWith("hi ")){
+            if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
 
                 try{
 
-                    String token = authorizationHeader.substring("hi ".length());
+                    String token = authorizationHeader.substring("Bearer ".length());
                     Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
@@ -64,7 +65,8 @@ public class CustomAuthorizaFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(),error);
                 }
 
-            }else {
+            }
+            else {
                 filterChain.doFilter(request,response);
             }
         }
